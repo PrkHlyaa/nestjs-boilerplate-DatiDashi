@@ -1,5 +1,23 @@
 # 🚀 Deployment Guide untuk Vercel
 
+## ⚠️ Penting: File Storage di Vercel
+
+Vercel serverless functions **tidak bisa menulis ke filesystem biasa** (read-only). File uploads menggunakan `/tmp` directory (max 512MB, bersifat temporary).
+
+### 📌 **Rekomendasi Production:**
+Untuk production, sebaiknya gunakan **AWS S3** atau **cloud storage** lain. Aplikasi ini sudah support S3:
+```env
+FILE_DRIVER = s3  # Ganti dari 'local' ke 's3'
+ACCESS_KEY_ID = your-aws-access-key
+SECRET_ACCESS_KEY = your-aws-secret-key
+AWS_DEFAULT_S3_BUCKET = your-bucket-name
+AWS_S3_REGION = us-east-1
+```
+
+> **Note:** Saat ini menggunakan `/tmp/files` untuk temporary file storage. File akan hilang setelah serverless function restart.
+
+---
+
 ## 📋 Langkah-langkah Deploy ke Vercel
 
 ### 1️⃣ **Persiapan Environment Variables**
