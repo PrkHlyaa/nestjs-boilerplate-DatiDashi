@@ -17,7 +17,7 @@ export class OrganizationMemberSeedService {
       await this.repository.save([
         this.repository.create({
           image: '/themes/default/img/gelap.png',
-          title: 'Farida',
+          title: 'DatiDashi',
           description: 'CEO & Founder',
         }),
         this.repository.create({

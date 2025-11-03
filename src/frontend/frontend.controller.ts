@@ -12,9 +12,9 @@ export class FrontendController {
       await this.companyProfileService.getCompanyProfileData();
 
     return {
-      title: 'Selamat datang Farida!',
+      title: 'Selamat datang!',
       theme: 'dark-theme.css',
-      name: 'far company',
+      name: 'datidashi company',
       produkList: companyData.produkList,
       strukturOrganisasi: companyData.strukturOrganisasi,
       fiturList: companyData.fiturList,
