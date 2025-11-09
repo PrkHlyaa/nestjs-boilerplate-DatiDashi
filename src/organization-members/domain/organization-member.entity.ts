@@ -6,13 +6,13 @@ export class OrganizationMember {
   id: string;
 
   @Column({ type: 'varchar', length: 255 })
-  image: string;
+  name: string;
 
   @Column({ type: 'varchar', length: 255 })
-  title: string;
+  position: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  description: string;
+  @Column({ type: 'varchar', length: 500, nullable: true })
+  photoUrl: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

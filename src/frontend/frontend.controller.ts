@@ -19,6 +19,7 @@ export class FrontendController {
       strukturOrganisasi: companyData.strukturOrganisasi,
       fiturList: companyData.fiturList,
       pricingList: companyData.pricingList,
+      aboutSections: companyData.aboutSections,
     };
   }
 

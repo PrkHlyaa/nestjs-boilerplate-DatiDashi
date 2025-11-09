@@ -46,6 +46,9 @@ async function bootstrap() {
         ),
         join(__dirname, '..', 'src', 'template', 'components'),
       ],
+      helpers: {
+        eq: (a: any, b: any) => a === b,
+      },
     }),
   );
 
@@ -58,12 +61,13 @@ async function bootstrap() {
     '/themes',
     express.static(join(__dirname, '..', 'src', 'template', 'themes')),
   );
+  expressApp.use('/js', express.static(join(__dirname, '..', 'public', 'js')));
 
   app.enableShutdownHooks();
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
     {
-      exclude: ['/'],
+      exclude: ['/', '/login', '/admin', '/admin/(.*)'],
     },
   );
   app.enableVersioning({

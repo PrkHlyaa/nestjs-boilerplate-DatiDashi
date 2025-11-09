@@ -55,8 +55,10 @@ export class PricingsService {
   private mapToResponseDto(pricing: Pricing): PricingResponseDto {
     return {
       id: pricing.id,
-      title: pricing.title,
+      name: pricing.name,
+      description: pricing.description,
       price: pricing.price,
+      period: pricing.period,
       features: pricing.features,
       createdAt: pricing.createdAt,
       updatedAt: pricing.updatedAt,

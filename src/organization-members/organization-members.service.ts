@@ -65,9 +65,9 @@ export class OrganizationMembersService {
   ): OrganizationMemberResponseDto {
     return {
       id: organizationMember.id,
-      image: organizationMember.image,
-      title: organizationMember.title,
-      description: organizationMember.description,
+      name: organizationMember.name,
+      position: organizationMember.position,
+      photoUrl: organizationMember.photoUrl,
       createdAt: organizationMember.createdAt,
       updatedAt: organizationMember.updatedAt,
     };

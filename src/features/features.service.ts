@@ -55,8 +55,9 @@ export class FeaturesService {
   private mapToResponseDto(feature: Feature): FeatureResponseDto {
     return {
       id: feature.id,
-      title: feature.title,
+      name: feature.name,
       description: feature.description,
+      icon: feature.icon,
       createdAt: feature.createdAt,
       updatedAt: feature.updatedAt,
     };

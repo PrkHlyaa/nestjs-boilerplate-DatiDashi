@@ -4,6 +4,7 @@ import { ProductsModule } from '../products/products.module';
 import { OrganizationMembersModule } from '../organization-members/organization-members.module';
 import { FeaturesModule } from '../features/features.module';
 import { PricingsModule } from '../pricings/pricings.module';
+import { AboutModule } from '../about/about.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { PricingsModule } from '../pricings/pricings.module';
     OrganizationMembersModule,
     FeaturesModule,
     PricingsModule,
+    AboutModule,
   ],
   providers: [CompanyProfileService],
   exports: [CompanyProfileService],

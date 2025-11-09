@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} - {{name}}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .admin-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+    
+    .sidebar-scroll {
+      width: 256px;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-shrink: 0;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 3px;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+    
+    .main-content-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+    
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    .main-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .main-content::-webkit-scrollbar-track {
+      background: #f3f4f6;
+    }
+    
+    .main-content::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 4px;
+    }
+    
+    .main-content::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
+    }
+    
+    .stat-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .quick-action {
+      transition: all 0.3s ease;
+    }
+    
+    .quick-action:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 antialiased">
+  <div class="admin-container">
+    {{> admin-sidebar active="dashboard"}}
+    
+    <div class="main-content-wrapper bg-gray-50">
+      <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0">
+        <div class="px-8 py-4">
+          <h2 class="text-2xl font-bold text-gray-800">{{title}}</h2>
+          <p class="text-sm text-gray-600 mt-1">Welcome to your admin dashboard</p>
+        </div>
+      </header>
+      
+      <main class="main-content p-8 pb-16">
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 mb-6 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-1">Welcome to Admin Dashboard</h3>
+              <p class="text-blue-100 text-sm">Manage all your website content in one place</p>
+            </div>
+            <div class="hidden md:block">
+              <i class="fas fa-chart-pie text-5xl text-blue-400 opacity-50"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+          <div class="stat-card bg-white rounded-lg shadow-md p-5 border-l-4 border-blue-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-xs font-semibold uppercase mb-1">Products</p>
+                <h3 class="text-2xl font-bold text-gray-900">{{totalProducts}}</h3>
+              </div>
+              <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
+                <i class="fas fa-box text-blue-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-lg shadow-md p-5 border-l-4 border-green-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-xs font-semibold uppercase mb-1">Pricing Plans</p>
+                <h3 class="text-2xl font-bold text-gray-900">{{totalPricings}}</h3>
+              </div>
+              <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
+                <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-lg shadow-md p-5 border-l-4 border-purple-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-xs font-semibold uppercase mb-1">Features</p>
+                <h3 class="text-2xl font-bold text-gray-900">{{totalFeatures}}</h3>
+              </div>
+              <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center">
+                <i class="fas fa-star text-purple-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-lg shadow-md p-5 border-l-4 border-yellow-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-xs font-semibold uppercase mb-1">About</p>
+                <h3 class="text-2xl font-bold text-gray-900">{{totalAbout}}</h3>
+              </div>
+              <div class="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center">
+                <i class="fas fa-info-circle text-yellow-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-lg shadow-md p-5 border-l-4 border-red-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-xs font-semibold uppercase mb-1">Team</p>
+                <h3 class="text-2xl font-bold text-gray-900">{{totalMembers}}</h3>
+              </div>
+              <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center">
+                <i class="fas fa-users text-red-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+            Quick Actions
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <a href="/admin/products" class="quick-action flex flex-col items-center p-4 bg-blue-50 rounded-lg border border-blue-100 hover:border-blue-300 hover:bg-blue-100">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-2 shadow">
+                <i class="fas fa-plus text-white"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-700 text-center">Add Product</span>
+            </a>
+            <a href="/admin/pricings" class="quick-action flex flex-col items-center p-4 bg-green-50 rounded-lg border border-green-100 hover:border-green-300 hover:bg-green-100">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-2 shadow">
+                <i class="fas fa-plus text-white"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-700 text-center">Add Pricing</span>
+            </a>
+            <a href="/admin/features" class="quick-action flex flex-col items-center p-4 bg-purple-50 rounded-lg border border-purple-100 hover:border-purple-300 hover:bg-purple-100">
+              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mb-2 shadow">
+                <i class="fas fa-plus text-white"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-700 text-center">Add Feature</span>
+            </a>
+            <a href="/admin/about" class="quick-action flex flex-col items-center p-4 bg-yellow-50 rounded-lg border border-yellow-100 hover:border-yellow-300 hover:bg-yellow-100">
+              <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mb-2 shadow">
+                <i class="fas fa-plus text-white"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-700 text-center">Add About</span>
+            </a>
+            <a href="/admin/members" class="quick-action flex flex-col items-center p-4 bg-red-50 rounded-lg border border-red-100 hover:border-red-300 hover:bg-red-100">
+              <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mb-2 shadow">
+                <i class="fas fa-plus text-white"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-700 text-center">Add Member</span>
+            </a>
+            <a href="/" class="quick-action flex flex-col items-center p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-300 hover:bg-gray-100">
+              <div class="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center mb-2 shadow">
+                <i class="fas fa-eye text-white"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-700 text-center">View Website</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Content Overview -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-start">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-info-circle text-blue-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-gray-900 mb-2">Content Management System</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                Welcome to your admin panel. Use the sidebar navigation to manage different sections of your website.
+                All create, update, and delete operations are protected with JWT authentication for maximum security.
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-100">
+                  <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">Secure Authentication</h4>
+                    <p class="text-xs text-gray-600">All operations protected by JWT tokens</p>
+                  </div>
+                </div>
+                <div class="flex items-start p-3 bg-blue-50 rounded-lg border border-blue-100">
+                  <i class="fas fa-check-circle text-blue-500 mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">Real-time Updates</h4>
+                    <p class="text-xs text-gray-600">Changes reflect immediately on the website</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

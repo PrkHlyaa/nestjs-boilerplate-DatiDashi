@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} - {{name}}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    html, body {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .admin-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    .sidebar-scroll {
+      width: 256px;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-shrink: 0;
+    }
+
+    .main-content-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar,
+    .main-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar-track,
+    .main-content::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar-thumb,
+    .main-content::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 3px;
+    }
+    
+    .sidebar-scroll::-webkit-scrollbar-thumb:hover,
+    .main-content::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    .main-content::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="admin-container">
+    {{> admin-sidebar active="members"}}
+    
+    <div class="main-content-wrapper">
+      <header class="flex-shrink-0 bg-white shadow-sm border-b border-gray-200">
+        <div class="flex items-center justify-between px-8 py-4">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">{{title}}</h2>
+            <p class="text-sm text-gray-600 mt-1">Manage your team members</p>
+          </div>
+          <button onclick="openCreateModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg shadow-md transition flex items-center">
+            <i class="fas fa-plus mr-2"></i>
+            Add Member
+          </button>
+        </div>
+      </header>
+      
+      <main class="main-content p-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {{#each members}}
+          <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 text-center hover:shadow-lg transition">
+            <div class="mb-4">
+              <img src="{{this.photoUrl}}" alt="{{this.name}}" 
+                class="w-24 h-24 rounded-full mx-auto object-cover border-4 border-blue-100" 
+                onerror="this.src='https://via.placeholder.com/96'">
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-1">{{this.name}}</h3>
+            <p class="text-sm text-gray-600 mb-4">{{this.position}}</p>
+            <div class="flex space-x-2">
+              <button onclick="editMember('{{this.id}}')" 
+                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm transition">
+                <i class="fas fa-edit mr-1"></i>
+                Edit
+              </button>
+              <button onclick="deleteMember('{{this.id}}', '{{this.name}}')" 
+                class="flex-1 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm transition">
+                <i class="fas fa-trash mr-1"></i>
+                Delete
+              </button>
+            </div>
+          </div>
+          {{else}}
+          <div class="col-span-4 text-center py-16">
+            <i class="fas fa-users text-gray-300 text-6xl mb-4"></i>
+            <p class="text-gray-500 text-lg mb-2">No team members found</p>
+            <p class="text-gray-400 text-sm">Click "Add Member" to create one</p>
+          </div>
+          {{/each}}
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="memberModal" class="hidden fixed inset-0 bg-black bg-opacity-50 modal-backdrop overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-6 border-0 w-11/12 md:w-1/2 shadow-2xl rounded-xl bg-white">
+      <div class="flex justify-between items-center mb-5">
+        <h3 class="text-xl font-bold text-gray-900" id="modalTitle">
+          <i class="fas fa-user text-blue-600 mr-2"></i>
+          Add Member
+        </h3>
+        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 transition">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      
+      <form id="memberForm" onsubmit="saveMember(event)" class="space-y-4">
+        <input type="hidden" id="memberId">
+        
+        <div>
+          <label class="block text-gray-700 text-sm font-semibold mb-2">
+            <i class="fas fa-user text-blue-600 mr-1"></i>
+            Name
+          </label>
+          <input type="text" id="memberName" required 
+            class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 text-sm font-semibold mb-2">
+            <i class="fas fa-briefcase text-blue-600 mr-1"></i>
+            Position
+          </label>
+          <input type="text" id="memberPosition" required 
+            class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 text-sm font-semibold mb-2">
+            <i class="fas fa-image text-blue-600 mr-1"></i>
+            Photo URL
+          </label>
+          <input type="text" id="memberPhotoUrl" 
+            class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <p class="text-xs text-gray-500 mt-1">Leave empty for default avatar</p>
+        </div>
+        
+        <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">
+          <button type="button" onclick="closeModal()" 
+            class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2.5 px-5 rounded-lg transition">
+            <i class="fas fa-times mr-1"></i>
+            Cancel
+          </button>
+          <button type="submit" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition">
+            <i class="fas fa-save mr-1"></i>
+            Save Member
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="/js/admin-members.js"></script>
+</body>
+</html>

@@ -33,6 +33,8 @@ import { OrganizationMembersModule } from './organization-members/organization-m
 import { FeaturesModule } from './features/features.module';
 import { PricingsModule } from './pricings/pricings.module';
 import { CompanyProfileModule } from './company-profile/company-profile.module';
+import { AboutModule } from './about/about.module';
+import { AdminModule } from './admin/admin.module';
 
 // <database-block>
 const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
@@ -104,6 +106,8 @@ const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
     FeaturesModule,
     PricingsModule,
     CompanyProfileModule,
+    AboutModule,
+    AdminModule,
   ],
 })
 export class AppModule {}

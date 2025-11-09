@@ -16,18 +16,52 @@ export class FeatureSeedService {
     if (count === 0) {
       await this.repository.save([
         this.repository.create({
-          title: 'Integrasi Cepat',
+          name: 'Scalable Architecture',
           description:
-            'Mudah diintegrasikan dengan sistem Anda tanpa hambatan.',
+            'Sistem dirancang untuk scale otomatis sesuai kebutuhan bisnis Anda. Dapat menangani hingga jutaan users tanpa penurunan performa.',
+          icon: 'fa-expand-arrows-alt',
         }),
         this.repository.create({
-          title: 'Keamanan Tinggi',
+          name: 'Enterprise Security',
           description:
-            'Data Anda terlindungi dengan enkripsi dan autentikasi modern.',
+            'Keamanan tingkat enterprise dengan enkripsi end-to-end, two-factor authentication, regular security audits, dan compliance dengan standar internasional.',
+          icon: 'fa-shield-alt',
         }),
         this.repository.create({
-          title: 'Dukungan 24/7',
-          description: 'Tim kami siap membantu kapan pun Anda butuh.',
+          name: '24/7 Technical Support',
+          description:
+            'Tim support dedicated kami siap membantu 24/7 melalui berbagai channel: phone, email, live chat, dan ticketing system dengan SLA response time terjamin.',
+          icon: 'fa-headset',
+        }),
+        this.repository.create({
+          name: 'Cloud-Native Technology',
+          description:
+            'Dibangun dengan teknologi cloud-native modern seperti microservices, containerization (Docker/Kubernetes), dan serverless untuk efisiensi maksimal.',
+          icon: 'fa-cloud',
+        }),
+        this.repository.create({
+          name: 'Real-time Analytics',
+          description:
+            'Dashboard analytics real-time dengan visualisasi data interaktif, custom reports, dan predictive insights menggunakan machine learning.',
+          icon: 'fa-chart-line',
+        }),
+        this.repository.create({
+          name: 'API-First Approach',
+          description:
+            'RESTful API yang well-documented dengan Swagger/OpenAPI, webhooks support, dan easy integration dengan third-party services.',
+          icon: 'fa-plug',
+        }),
+        this.repository.create({
+          name: 'Mobile-First Design',
+          description:
+            'UI/UX responsive yang dioptimalkan untuk mobile devices, progressive web app (PWA) ready, dan native mobile apps untuk iOS & Android.',
+          icon: 'fa-mobile-alt',
+        }),
+        this.repository.create({
+          name: 'Automated DevOps',
+          description:
+            'CI/CD pipeline otomatis, automated testing, deployment dengan zero downtime, dan monitoring infrastructure yang comprehensive.',
+          icon: 'fa-robot',
         }),
       ]);
     }

@@ -6,12 +6,18 @@ export class Pricing {
   id: string;
 
   @Column({ type: 'varchar', length: 255 })
-  title: string;
+  name: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  price: string;
+  @Column({ type: 'text', nullable: true })
+  description: string;
 
-  @Column({ type: 'json' })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  price: number;
+
+  @Column({ type: 'varchar', length: 50, default: 'month' })
+  period: string;
+
+  @Column({ type: 'json', nullable: true })
   features: string[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

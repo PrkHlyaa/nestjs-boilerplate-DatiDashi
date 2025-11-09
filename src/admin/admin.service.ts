@@ -1,22 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { ProductsService } from '../products/products.service';
+import { PricingsService } from '../pricings/pricings.service';
+import { FeaturesService } from '../features/features.service';
+import { AboutService } from '../about/about.service';
+import { OrganizationMembersService } from '../organization-members/organization-members.service';
 
 @Injectable()
 export class AdminService {
   constructor(
     private readonly usersService: UsersService,
     private readonly productsService: ProductsService,
+    private readonly pricingsService: PricingsService,
+    private readonly featuresService: FeaturesService,
+    private readonly aboutService: AboutService,
+    private readonly organizationMembersService: OrganizationMembersService,
   ) {}
 
-  getDashboardStats() {
-    // Get counts for dashboard stats
-    // For now, return mock data
+  async getDashboardStats() {
+    const [products, pricings, features, about, members] = await Promise.all([
+      this.productsService.findAll(),
+      this.pricingsService.findAll(),
+      this.featuresService.findAll(),
+      this.aboutService.findAll(),
+      this.organizationMembersService.findAll(),
+    ]);
+
     return {
-      totalUsers: 0,
-      totalProducts: 0,
-      totalOrders: 0,
-      totalRevenue: 0,
+      totalProducts: products.length,
+      totalPricings: pricings.length,
+      totalFeatures: features.length,
+      totalAbout: about.length,
+      totalMembers: members.length,
     };
   }
 
@@ -26,8 +41,23 @@ export class AdminService {
     return [];
   }
 
-  getAllProducts() {
-    // Get all products from database
-    return [];
+  async getAllProducts() {
+    return await this.productsService.findAll();
+  }
+
+  async getAllPricings() {
+    return await this.pricingsService.findAll();
+  }
+
+  async getAllFeatures() {
+    return await this.featuresService.findAll();
+  }
+
+  async getAllAbout() {
+    return await this.aboutService.findAll();
+  }
+
+  async getAllMembers() {
+    return await this.organizationMembersService.findAll();
   }
 }

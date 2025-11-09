@@ -1,8 +1,21 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
 export class OrganizationMemberResponseDto {
+  @ApiProperty()
   id: string;
-  image: string;
-  title: string;
-  description: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  position: string;
+
+  @ApiPropertyOptional()
+  photoUrl?: string;
+
+  @ApiProperty()
   createdAt: Date;
+
+  @ApiProperty()
   updatedAt: Date;
 }

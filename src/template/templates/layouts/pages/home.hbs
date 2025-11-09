@@ -10,15 +10,31 @@
 </section>
 
 <section class="about-section" id="about-section">
-  <div class="about-card">
-    <div class="about-text">
-      <h2>Tentang Kami</h2>
-      <p>Datidashi Company adalah tim kreatif yang fokus pada solusi digital, pengembangan teknologi, dan strategi bisnis. Kami percaya bahwa inovasi dimulai dari kolaborasi yang kuat dan visi yang jelas. Dengan pengalaman bertahun-tahun di industri teknologi, kami berkomitmen untuk memberikan solusi terbaik bagi klien kami.</p>
+  {{#each aboutSections}}
+    {{#if isActive}}
+      <div class="about-card">
+        <div class="about-text">
+          <h2>{{title}}</h2>
+          <p>{{description}}</p>
+        </div>
+        {{#if imageUrl}}
+          <div class="about-image">
+            <img src="{{imageUrl}}" alt="{{title}}">
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+  {{else}}
+    <div class="about-card">
+      <div class="about-text">
+        <h2>Tentang Kami</h2>
+        <p>Datidashi Company adalah tim kreatif yang fokus pada solusi digital, pengembangan teknologi, dan strategi bisnis. Kami percaya bahwa inovasi dimulai dari kolaborasi yang kuat dan visi yang jelas. Dengan pengalaman bertahun-tahun di industri teknologi, kami berkomitmen untuk memberikan solusi terbaik bagi klien kami.</p>
+      </div>
+      <div class="about-image">
+        <img src="/themes/default/img/opening-real.jpeg" alt="Foto Perusahaan">
+      </div>
     </div>
-    <div class="about-image">
-      <img src="/themes/default/img/opening-real.jpeg" alt="Foto Perusahaan">
-    </div>
-  </div>
+  {{/each}}
 </section>
 
 <section class="struktur-section" id="struktur-section">
@@ -26,12 +42,12 @@
   <div class="card-container">
     {{#each strukturOrganisasi}}
       <div class="card">
-        {{#if image}}
-          <img src="{{image}}" alt="{{title}}" class="card-img">
+        {{#if photoUrl}}
+          <img src="{{photoUrl}}" alt="{{name}}" class="card-img">
         {{/if}}
         <div class="card-body">
-          <h3>{{title}}</h3>
-          <p>{{description}}</p>
+          <h3>{{name}}</h3>
+          <p>{{position}}</p>
         </div>
       </div>
     {{/each}}
@@ -49,7 +65,10 @@
     {{#each fiturList}}
       <div class="card">
         <div class="card-body">
-          <h3>{{title}}</h3>
+          {{#if icon}}
+            <i class="fas {{icon}} feature-icon"></i>
+          {{/if}}
+          <h3>{{name}}</h3>
           <p>{{description}}</p>
         </div>
       </div>
@@ -63,14 +82,20 @@
     {{#each pricingList}}
       <div class="card">
         <div class="card-body">
-          <h3>{{title}}</h3>
-          <p class="price">{{price}}</p>
-          <ul>
-            {{#each features}}
-              <li>{{this}}</li>
-            {{/each}}
-          </ul>
-          <button>Beli Sekarang</button>
+          <h3>{{name}}</h3>
+          {{#if description}}
+            <p class="pricing-description">{{description}}</p>
+          {{/if}}
+          <p class="price">Rp {{price}}</p>
+          <p class="period">per {{period}}</p>
+          {{#if features}}
+            <ul>
+              {{#each features}}
+                <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          {{/if}}
+          <button class="btn primary">Beli Sekarang</button>
         </div>
       </div>
     {{/each}}

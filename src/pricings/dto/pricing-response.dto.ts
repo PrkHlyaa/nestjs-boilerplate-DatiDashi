@@ -1,8 +1,27 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
 export class PricingResponseDto {
+  @ApiProperty()
   id: string;
-  title: string;
-  price: string;
-  features: string[];
+
+  @ApiProperty()
+  name: string;
+
+  @ApiPropertyOptional()
+  description?: string;
+
+  @ApiProperty()
+  price: number;
+
+  @ApiPropertyOptional()
+  period?: string;
+
+  @ApiPropertyOptional({ type: [String] })
+  features?: string[];
+
+  @ApiProperty()
   createdAt: Date;
+
+  @ApiProperty()
   updatedAt: Date;
 }

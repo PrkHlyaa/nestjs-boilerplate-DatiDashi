@@ -1,122 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - {{name}}</title>
-  <link id="theme-style" rel="stylesheet" href="/themes/default/partials/dark-theme.css">
-</head>
-<body>
-  {{> header }}
+{{> header }}
 
-  <main class="login-page">
-    <div class="login-container">
-      <div class="login-card">
-        <h2>Login to Admin Panel</h2>
-        <p class="login-subtitle">Enter your credentials to access the admin dashboard</p>
+<section class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Login to Admin Panel</h2>
+      <p class="login-subtitle">Enter your credentials to access the admin dashboard</p>
 
-        <div id="error-message" class="error-message" style="display: none;"></div>
-        <div id="success-message" class="success-message" style="display: none;"></div>
+      <div id="error-message" class="error-message" style="display: none;"></div>
+      <div id="success-message" class="success-message" style="display: none;"></div>
 
-        <form id="login-form" class="login-form">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              placeholder="admin@example.com"
-              required 
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input 
-              type="password" 
-              id="password" 
-              name="password" 
-              placeholder="Enter your password"
-              required 
-            />
-          </div>
-
-          <button type="submit" class="btn-login" id="login-btn">
-            <span class="btn-text">Login</span>
-            <span class="btn-loader" style="display: none;">Loading...</span>
-          </button>
-        </form>
-
-        <div class="login-footer">
-          <p>Default admin credentials:</p>
-          <p><strong>Email:</strong> admin@example.com</p>
-          <p><strong>Password:</strong> admin123</p>
+      <form id="login-form" class="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="admin@example.com"
+            required 
+          />
         </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="Enter your password"
+            required 
+          />
+        </div>
+
+        <button type="submit" class="btn-login" id="login-btn">
+          <span class="btn-text">Login</span>
+          <span class="btn-loader" style="display: none;">Loading...</span>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>Default admin credentials:</p>
+        <p><strong>Email:</strong> admin@example.com</p>
+        <p><strong>Password:</strong> secret </p>
       </div>
     </div>
-  </main>
+  </div>
+</section>
 
-  {{> footer }}
+{{> footer }}
 
-  <script>
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const loginBtn = document.getElementById('login-btn');
-      const btnText = loginBtn.querySelector('.btn-text');
-      const btnLoader = loginBtn.querySelector('.btn-loader');
-      const errorMessage = document.getElementById('error-message');
-      const successMessage = document.getElementById('success-message');
+<script>
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const loginBtn = document.getElementById('login-btn');
+    const btnText = loginBtn.querySelector('.btn-text');
+    const btnLoader = loginBtn.querySelector('.btn-loader');
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
 
-      // Reset messages
-      errorMessage.style.display = 'none';
-      successMessage.style.display = 'none';
+    // Reset messages
+    errorMessage.style.display = 'none';
+    successMessage.style.display = 'none';
 
-      // Disable button and show loader
-      loginBtn.disabled = true;
-      btnText.style.display = 'none';
-      btnLoader.style.display = 'inline';
+    // Disable button and show loader
+    loginBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline';
 
-      try {
-        const response = await fetch('/api/v1/auth/email/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-        });
+    try {
+      const response = await fetch('/api/v1/auth/email/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok && data.token) {
-          // Store token in localStorage
-          localStorage.setItem('authToken', data.token);
-          localStorage.setItem('refreshToken', data.refreshToken);
-          localStorage.setItem('tokenExpiry', data.tokenExpires);
-          
-          // Show success message
-          successMessage.textContent = 'Login successful! Redirecting to admin panel...';
-          successMessage.style.display = 'block';
+      if (response.ok && data.token) {
+        // Store token in localStorage
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        localStorage.setItem('tokenExpiry', data.tokenExpires);
+        
+        // Show success message
+        successMessage.textContent = 'Login successful! Redirecting to admin panel...';
+        successMessage.style.display = 'block';
 
-          // Redirect to admin page after 1 second
-          setTimeout(() => {
-            window.location.href = '/admin';
-          }, 1000);
-        } else {
-          // Show error message
-          errorMessage.textContent = data.message || 'Login failed. Please check your credentials.';
-          errorMessage.style.display = 'block';
-          
-          // Re-enable button
-          loginBtn.disabled = false;
-          btnText.style.display = 'inline';
-          btnLoader.style.display = 'none';
-        }
-      } catch (error) {
-        console.error('Login error:', error);
-        errorMessage.textContent = 'An error occurred. Please try again.';
+        // Redirect to admin page after 1 second
+        setTimeout(() => {
+          window.location.href = '/admin';
+        }, 1000);
+      } else {
+        // Show error message
+        errorMessage.textContent = data.message || 'Login failed. Please check your credentials.';
         errorMessage.style.display = 'block';
         
         // Re-enable button
@@ -124,19 +105,27 @@
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
       }
-    });
+    } catch (error) {
+      console.error('Login error:', error);
+      errorMessage.textContent = 'An error occurred. Please try again.';
+      errorMessage.style.display = 'block';
+      
+      // Re-enable button
+      loginBtn.disabled = false;
+      btnText.style.display = 'inline';
+      btnLoader.style.display = 'none';
+    }
+  });
 
-    // Check if already logged in
-    window.addEventListener('DOMContentLoaded', () => {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        // Verify token is still valid
-        const expiry = localStorage.getItem('tokenExpiry');
-        if (expiry && new Date(expiry) > new Date()) {
-          window.location.href = '/admin';
-        }
+  // Check if already logged in
+  window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      // Verify token is still valid
+      const expiry = localStorage.getItem('tokenExpiry');
+      if (expiry && new Date(expiry) > new Date()) {
+        window.location.href = '/admin';
       }
-    });
-  </script>
-</body>
-</html>
+    }
+  });
+</script>

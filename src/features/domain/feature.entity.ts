@@ -6,10 +6,13 @@ export class Feature {
   id: string;
 
   @Column({ type: 'varchar', length: 255 })
-  title: string;
+  name: string;
 
   @Column({ type: 'text' })
   description: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  icon: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

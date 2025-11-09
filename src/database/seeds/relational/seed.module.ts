@@ -11,6 +11,7 @@ import { ProductSeedModule } from './product/product-seed.module';
 import { OrganizationMemberSeedModule } from './organization-member/organization-member-seed.module';
 import { FeatureSeedModule } from './feature/feature-seed.module';
 import { PricingSeedModule } from './pricing/pricing-seed.module';
+import { AboutSeedModule } from './about/about-seed.module';
 import databaseConfig from '../../config/database.config';
 import appConfig from '../../../config/app.config';
 
@@ -23,6 +24,7 @@ import appConfig from '../../../config/app.config';
     OrganizationMemberSeedModule,
     FeatureSeedModule,
     PricingSeedModule,
+    AboutSeedModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],
