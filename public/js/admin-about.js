@@ -1,6 +1,8 @@
 // Admin About CRUD
 const API_BASE_URL = '/api/about';
 let authToken = localStorage.getItem('authToken') || '';
+let currentImageMode = 'url'; // 'url' or 'upload'
+let uploadedImageBase64 = null;
 
 // Define fixed order mapping for sections
 const SECTION_ORDER = {
@@ -15,6 +17,75 @@ function getHeaders() {
   return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` };
 }
 
+// Toggle between URL and Upload mode
+function toggleImageMode(mode) {
+  currentImageMode = mode;
+  const urlSection = document.getElementById('urlInputSection');
+  const uploadSection = document.getElementById('uploadInputSection');
+  const btnUrl = document.getElementById('btnUrlMode');
+  const btnUpload = document.getElementById('btnUploadMode');
+  
+  if (mode === 'url') {
+    urlSection.classList.remove('hidden');
+    uploadSection.classList.add('hidden');
+    btnUrl.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+    btnUrl.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+    btnUpload.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+    btnUpload.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+    
+    // Clear upload
+    uploadedImageBase64 = null;
+    document.getElementById('imagePreview').classList.add('hidden');
+    document.getElementById('aboutImageFile').value = '';
+  } else {
+    urlSection.classList.add('hidden');
+    uploadSection.classList.remove('hidden');
+    btnUpload.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+    btnUpload.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+    btnUrl.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+    btnUrl.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+    
+    // Clear URL
+    document.getElementById('aboutImageUrl').value = '';
+  }
+}
+
+// Handle image file upload
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  // Validate file type
+  if (!file.type.startsWith('image/')) {
+    alert('Please upload an image file (PNG, JPG, WEBP)');
+    return;
+  }
+  
+  // Validate file size (5MB max)
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Image size must be less than 5MB');
+    return;
+  }
+  
+  // Read file as base64
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedImageBase64 = e.target.result;
+    
+    // Show preview
+    document.getElementById('previewImg').src = uploadedImageBase64;
+    document.getElementById('imagePreview').classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+// Remove uploaded image
+function removeUploadedImage() {
+  uploadedImageBase64 = null;
+  document.getElementById('aboutImageFile').value = '';
+  document.getElementById('imagePreview').classList.add('hidden');
+}
+
 // Auto-update order when section changes
 function updateOrderBySection() {
   const section = document.getElementById('aboutSection').value;
@@ -26,6 +97,10 @@ function openCreateModal() {
   document.getElementById('modalTitle').textContent = 'Add About Section';
   document.getElementById('aboutForm').reset();
   document.getElementById('aboutId').value = '';
+  
+  // Reset image mode to URL
+  toggleImageMode('url');
+  uploadedImageBase64 = null;
   
   // Set default order based on default section
   updateOrderBySection();
@@ -47,8 +122,23 @@ async function editAbout(id) {
     document.getElementById('aboutTitle').value = about.title;
     document.getElementById('aboutDescription').value = about.description;
     document.getElementById('aboutSection').value = about.section || '';
-    document.getElementById('aboutImageUrl').value = about.imageUrl || '';
     document.getElementById('aboutIsActive').checked = about.isActive;
+    
+    // Set image mode based on existing data
+    if (about.imageUrl) {
+      // Check if it's a base64 image or URL
+      if (about.imageUrl.startsWith('data:image')) {
+        toggleImageMode('upload');
+        uploadedImageBase64 = about.imageUrl;
+        document.getElementById('previewImg').src = about.imageUrl;
+        document.getElementById('imagePreview').classList.remove('hidden');
+      } else {
+        toggleImageMode('url');
+        document.getElementById('aboutImageUrl').value = about.imageUrl;
+      }
+    } else {
+      toggleImageMode('url');
+    }
     
     // Auto-set order based on section
     updateOrderBySection();
@@ -81,11 +171,19 @@ async function saveAbout(event) {
   const section = document.getElementById('aboutSection').value;
   const autoOrder = SECTION_ORDER[section] || 0;
   
+  // Determine image URL based on mode
+  let imageUrl = null;
+  if (currentImageMode === 'url') {
+    imageUrl = document.getElementById('aboutImageUrl').value.trim() || null;
+  } else if (currentImageMode === 'upload' && uploadedImageBase64) {
+    imageUrl = uploadedImageBase64; // Store base64 image
+  }
+  
   const data = {
     title: title,
     description: description,
     section: section || null,
-    imageUrl: document.getElementById('aboutImageUrl').value.trim() || null,
+    imageUrl: imageUrl,
     order: autoOrder, // Use auto-calculated order
     isActive: document.getElementById('aboutIsActive').checked,
   };

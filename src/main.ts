@@ -22,6 +22,10 @@ async function bootstrap() {
   const configService = app.get(ConfigService<AllConfigType>);
   const expressApp = app.getHttpAdapter().getInstance();
 
+  // Increase body size limit for base64 images (10MB)
+  expressApp.use(express.json({ limit: '10mb' }));
+  expressApp.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
   expressApp.engine(
     'hbs',
     engine({
