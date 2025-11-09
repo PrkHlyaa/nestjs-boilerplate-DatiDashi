@@ -17,10 +17,9 @@ export class CreateOrganizationMemberDto {
 
   @ApiPropertyOptional({
     example: 'https://example.com/photo.jpg',
-    description: 'Photo URL of the team member',
+    description: 'Photo URL or base64 image data of the team member',
   })
   @IsString()
-  @MaxLength(500)
   @IsOptional()
   photoUrl?: string;
 }

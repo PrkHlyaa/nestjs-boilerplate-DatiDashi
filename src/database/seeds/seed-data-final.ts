@@ -38,55 +38,68 @@ export async function seedData(dataSource: DataSource) {
     ON CONFLICT (id) DO UPDATE SET jumlah = EXCLUDED.jumlah, judul = EXCLUDED.judul, deskripsi = EXCLUDED.deskripsi;
   `);
 
-  // 2. ORGANIZATION MEMBERS (image, title, description)
+  // 2. ORGANIZATION MEMBERS (name, position, photoUrl)
   console.log('Seeding organization members...');
   await dataSource.query(`
-    INSERT INTO organization_members (id, image, title, description)
+    INSERT INTO organization_members (id, name, position, "photoUrl", "createdAt", "updatedAt")
     VALUES 
-    ('750e8400-e29b-41d4-a716-446655440001', '/themes/default/img/gelap.png', 'Budi Santoso - CEO & Founder', 'Visioner dengan 15 tahun pengalaman di industri teknologi. Memimpin tim untuk menciptakan solusi inovatif.'),
-    ('750e8400-e29b-41d4-a716-446655440002', '/themes/default/img/gelap.png', 'Siti Nurhaliza - CTO', 'Ahli arsitektur sistem dengan spesialisasi cloud computing dan microservices. 12 tahun pengalaman.'),
-    ('750e8400-e29b-41d4-a716-446655440003', '/themes/default/img/gelap.png', 'Ahmad Wijaya - COO', 'Mengoptimalkan operasional perusahaan dengan efisiensi tinggi. Background MBA dan 10 tahun di tech industry.'),
-    ('750e8400-e29b-41d4-a716-446655440004', '/themes/default/img/gelap.png', 'Rina Kusuma - Lead Backend Developer', 'Expert dalam NestJS, PostgreSQL, dan microservices architecture. Memimpin tim backend development.'),
-    ('750e8400-e29b-41d4-a716-446655440005', '/themes/default/img/gelap.png', 'Dedy Prasetyo - Lead Frontend Developer', 'Spesialis React, Vue.js, dan modern web technologies. Passionate tentang user experience dan performance.'),
-    ('750e8400-e29b-41d4-a716-446655440006', '/themes/default/img/gelap.png', 'Wulandari - Mobile Development Lead', 'Expert dalam React Native dan Flutter. Telah mengembangkan 20+ aplikasi mobile yang sukses.'),
-    ('750e8400-e29b-41d4-a716-446655440007', '/themes/default/img/gelap.png', 'Rizky Firmansyah - DevOps Engineer', 'Spesialis CI/CD, Docker, Kubernetes, dan cloud infrastructure (AWS, Azure, GCP).'),
-    ('750e8400-e29b-41d4-a716-446655440008', '/themes/default/img/gelap.png', 'Maya Anggraini - UI/UX Designer', 'Design thinking enthusiast dengan portfolio 50+ projects. Fokus pada user-centered design.'),
-    ('750e8400-e29b-41d4-a716-446655440009', '/themes/default/img/gelap.png', 'Andi Hermawan - QA Engineer', 'Quality assurance expert dengan pengalaman automation testing dan performance testing.'),
-    ('750e8400-e29b-41d4-a716-446655440010', '/themes/default/img/gelap.png', 'Putri Rahayu - Product Manager', 'Agile product management specialist. Memastikan produk sesuai kebutuhan market dan user.'),
-    ('750e8400-e29b-41d4-a716-446655440011', '/themes/default/img/gelap.png', 'Farhan Maulana - Data Analyst', 'Data-driven decision maker dengan expertise di business intelligence dan data visualization.'),
-    ('750e8400-e29b-41d4-a716-446655440012', '/themes/default/img/gelap.png', 'Linda Sari - Security Engineer', 'Cybersecurity expert yang memastikan aplikasi kami aman dari berbagai ancaman digital.'),
-    ('750e8400-e29b-41d4-a716-446655440013', '/themes/default/img/gelap.png', 'Bambang Suprapto - Backend Developer', 'Passionate developer dengan keahlian di Node.js, Python, dan database optimization.'),
-    ('750e8400-e29b-41d4-a716-446655440014', '/themes/default/img/gelap.png', 'Nadia Safitri - Frontend Developer', 'Creative frontend developer yang selalu update dengan latest web technologies dan trends.'),
-    ('750e8400-e29b-41d4-a716-446655440015', '/themes/default/img/gelap.png', 'Hendra Gunawan - Customer Success Manager', 'Memastikan kepuasan klien dengan response time cepat dan solusi yang tepat sasaran.')
-    ON CONFLICT (id) DO UPDATE SET image = EXCLUDED.image, title = EXCLUDED.title, description = EXCLUDED.description;
+    ('750e8400-e29b-41d4-a716-446655440001', 'Budi Santoso', 'CEO & Founder', 'https://ui-avatars.com/api/?name=Budi+Santoso&background=0D8ABC&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440002', 'Siti Nurhaliza', 'CTO', 'https://ui-avatars.com/api/?name=Siti+Nurhaliza&background=4CAF50&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440003', 'Ahmad Wijaya', 'COO', 'https://ui-avatars.com/api/?name=Ahmad+Wijaya&background=FF9800&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440004', 'Rina Kusuma', 'Lead Backend Developer', 'https://ui-avatars.com/api/?name=Rina+Kusuma&background=9C27B0&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440005', 'Dedy Prasetyo', 'Lead Frontend Developer', 'https://ui-avatars.com/api/?name=Dedy+Prasetyo&background=2196F3&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440006', 'Wulandari', 'Mobile Development Lead', 'https://ui-avatars.com/api/?name=Wulandari&background=E91E63&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440007', 'Rizky Firmansyah', 'DevOps Engineer', 'https://ui-avatars.com/api/?name=Rizky+Firmansyah&background=607D8B&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440008', 'Maya Anggraini', 'UI/UX Designer', 'https://ui-avatars.com/api/?name=Maya+Anggraini&background=FF5722&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440009', 'Andi Hermawan', 'QA Engineer', 'https://ui-avatars.com/api/?name=Andi+Hermawan&background=795548&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440010', 'Putri Rahayu', 'Product Manager', 'https://ui-avatars.com/api/?name=Putri+Rahayu&background=009688&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440011', 'Farhan Maulana', 'Data Analyst', 'https://ui-avatars.com/api/?name=Farhan+Maulana&background=3F51B5&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440012', 'Linda Sari', 'Security Engineer', 'https://ui-avatars.com/api/?name=Linda+Sari&background=F44336&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440013', 'Bambang Suprapto', 'Backend Developer', 'https://ui-avatars.com/api/?name=Bambang+Suprapto&background=673AB7&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440014', 'Nadia Safitri', 'Frontend Developer', 'https://ui-avatars.com/api/?name=Nadia+Safitri&background=00BCD4&color=fff&size=200', NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440015', 'Hendra Gunawan', 'Customer Success Manager', 'https://ui-avatars.com/api/?name=Hendra+Gunawan&background=8BC34A&color=fff&size=200', NOW(), NOW())
+    ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, position = EXCLUDED.position, "photoUrl" = EXCLUDED."photoUrl", "updatedAt" = NOW();
   `);
 
-  // 3. FEATURES (title, description)
+  // 3. FEATURES (name, description, icon)
   console.log('Seeding features...');
   await dataSource.query(`
-    INSERT INTO features (id, title, description)
+    INSERT INTO features (id, name, description, icon, "createdAt", "updatedAt")
     VALUES 
-    ('850e8400-e29b-41d4-a716-446655440001', 'Modern Technology Stack', 'Menggunakan teknologi terkini seperti NestJS, React, Vue.js, TypeScript, dan PostgreSQL untuk membangun aplikasi yang powerful, maintainable, dan scalable dengan best practices industry.'),
-    ('850e8400-e29b-41d4-a716-446655440002', 'Cloud-Native Architecture', 'Aplikasi dirancang dengan arsitektur cloud-native yang dapat di-deploy di AWS, Azure, atau Google Cloud Platform dengan auto-scaling dan high availability untuk performa optimal.'),
-    ('850e8400-e29b-41d4-a716-446655440003', 'Enterprise-Grade Security', 'Implementasi security terbaik dengan encryption, authentication, authorization, regular security audits, dan compliance dengan standar internasional seperti ISO 27001 dan GDPR.'),
-    ('850e8400-e29b-41d4-a716-446655440004', 'Mobile Responsive Design', 'Semua aplikasi dibuat dengan pendekatan mobile-first design yang memberikan user experience optimal di berbagai devices mulai dari smartphone hingga desktop.'),
-    ('850e8400-e29b-41d4-a716-446655440005', '24/7 Support & Maintenance', 'Tim support kami siap membantu Anda kapan saja dengan response time maksimal 2 jam untuk critical issues dan regular maintenance untuk memastikan sistem berjalan lancar.'),
-    ('850e8400-e29b-41d4-a716-446655440006', 'Agile Development', 'Menggunakan metodologi Agile/Scrum dengan sprint 2 minggu, daily standup, dan regular demo untuk memastikan transparansi dan delivery yang cepat sesuai kebutuhan bisnis.'),
-    ('850e8400-e29b-41d4-a716-446655440007', 'API Integration', 'Kemampuan integrasi dengan berbagai third-party services seperti payment gateways, shipping providers, social media APIs, dan enterprise systems melalui RESTful API atau GraphQL.'),
-    ('850e8400-e29b-41d4-a716-446655440008', 'Advanced Analytics', 'Dashboard analytics komprehensif dengan real-time metrics, customizable reports, data visualization, dan business intelligence untuk data-driven decision making.')
-    ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description;
+    ('850e8400-e29b-41d4-a716-446655440001', 'Modern Technology Stack', 'Menggunakan teknologi terkini seperti NestJS, React, Vue.js, TypeScript, dan PostgreSQL untuk membangun aplikasi yang powerful, maintainable, dan scalable dengan best practices industry.', 'code', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440002', 'Cloud-Native Architecture', 'Aplikasi dirancang dengan arsitektur cloud-native yang dapat di-deploy di AWS, Azure, atau Google Cloud Platform dengan auto-scaling dan high availability untuk performa optimal.', 'cloud', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440003', 'Enterprise-Grade Security', 'Implementasi security terbaik dengan encryption, authentication, authorization, regular security audits, dan compliance dengan standar internasional seperti ISO 27001 dan GDPR.', 'shield', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440004', 'Mobile Responsive Design', 'Semua aplikasi dibuat dengan pendekatan mobile-first design yang memberikan user experience optimal di berbagai devices mulai dari smartphone hingga desktop.', 'mobile', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440005', '24/7 Support & Maintenance', 'Tim support kami siap membantu Anda kapan saja dengan response time maksimal 2 jam untuk critical issues dan regular maintenance untuk memastikan sistem berjalan lancar.', 'support', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440006', 'Agile Development', 'Menggunakan metodologi Agile/Scrum dengan sprint 2 minggu, daily standup, dan regular demo untuk memastikan transparansi dan delivery yang cepat sesuai kebutuhan bisnis.', 'agile', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440007', 'API Integration', 'Kemampuan integrasi dengan berbagai third-party services seperti payment gateways, shipping providers, social media APIs, dan enterprise systems melalui RESTful API atau GraphQL.', 'api', NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440008', 'Advanced Analytics', 'Dashboard analytics komprehensif dengan real-time metrics, customizable reports, data visualization, dan business intelligence untuk data-driven decision making.', 'chart', NOW(), NOW())
+    ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, description = EXCLUDED.description, icon = EXCLUDED.icon, "updatedAt" = NOW();
   `);
 
-  // 4. PRICINGS (title, price, features)
+  // 4. PRICINGS (name, description, price, period, features)
   console.log('Seeding pricings...');
   await dataSource.query(`
-    INSERT INTO pricings (id, title, price, features)
+    INSERT INTO pricings (id, name, description, price, period, features, "createdAt", "updatedAt")
     VALUES 
-    ('950e8400-e29b-41d4-a716-446655440001', 'Starter Package', 'Rp 25.000.000', '["Website Company Profile", "Responsive Design", "5 Pages", "Contact Form", "SEO Basic", "1 Bulan Support"]'::json),
-    ('950e8400-e29b-41d4-a716-446655440002', 'Professional Package', 'Rp 75.000.000', '["Custom Web Application", "Admin Dashboard", "Database Integration", "RESTful API", "Authentication", "3 Bulan Support", "Hosting Setup"]'::json),
-    ('950e8400-e29b-41d4-a716-446655440003', 'Enterprise Package', 'Rp 150.000.000', '["Full-Stack Application", "Microservices Architecture", "Cloud Deployment", "CI/CD Pipeline", "Load Balancing", "Advanced Security", "6 Bulan Support", "Training Team"]'::json),
-    ('950e8400-e29b-41d4-a716-446655440004', 'Maintenance Package', 'Rp 5.000.000/bulan', '["Bug Fixes", "Security Updates", "Performance Monitoring", "24/7 Support", "Regular Backups", "Monthly Reports"]'::json)
-    ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, price = EXCLUDED.price, features = EXCLUDED.features;
+    ('950e8400-e29b-41d4-a716-446655440001', 'Starter Package', 'Paket ideal untuk memulai transformasi digital bisnis Anda dengan website company profile profesional', 25000000.00, 'one-time', '["Website Company Profile", "Responsive Design", "5 Pages", "Contact Form", "SEO Basic", "1 Bulan Support"]'::json, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440002', 'Professional Package', 'Solusi lengkap untuk perusahaan yang membutuhkan custom web application dengan fitur kompleks', 75000000.00, 'one-time', '["Custom Web Application", "Admin Dashboard", "Database Integration", "RESTful API", "Authentication", "3 Bulan Support", "Hosting Setup"]'::json, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440003', 'Enterprise Package', 'Paket enterprise dengan arsitektur scalable untuk perusahaan besar dengan kebutuhan sistem terintegrasi', 99999999.99, 'one-time', '["Full-Stack Application", "Microservices Architecture", "Cloud Deployment", "CI/CD Pipeline", "Load Balancing", "Advanced Security", "6 Bulan Support", "Training Team"]'::json, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440004', 'Maintenance Package', 'Paket maintenance bulanan untuk menjaga sistem tetap optimal dan aman', 5000000.00, 'month', '["Bug Fixes", "Security Updates", "Performance Monitoring", "24/7 Support", "Regular Backups", "Monthly Reports"]'::json, NOW(), NOW())
+    ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, description = EXCLUDED.description, price = EXCLUDED.price, period = EXCLUDED.period, features = EXCLUDED.features, "updatedAt" = NOW();
+  `);
+
+  // 5. ABOUT SECTIONS (title, description, section, imageUrl, order, isActive)
+  console.log('Seeding about sections...');
+  await dataSource.query(`
+    INSERT INTO abouts (id, title, description, section, "imageUrl", "order", "isActive", "createdAt", "updatedAt")
+    VALUES 
+    ('a50e8400-e29b-41d4-a716-446655440001', 'Tentang Kami', 'DatiDashi adalah perusahaan teknologi yang berfokus pada pengembangan solusi digital inovatif untuk bisnis. Dengan pengalaman lebih dari 10 tahun, kami telah membantu ratusan perusahaan bertransformasi digital dan meningkatkan efisiensi operasional mereka. Tim kami terdiri dari para ahli yang passionate di bidang software development, cloud computing, dan digital transformation.', 'about', 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop', 1, true, NOW(), NOW()),
+    ('a50e8400-e29b-41d4-a716-446655440002', 'Visi Kami', 'Menjadi mitra teknologi terpercaya yang memberdayakan bisnis melalui solusi digital inovatif dan transformasi teknologi yang berkelanjutan. Kami berkomitmen untuk selalu berada di garis depan inovasi teknologi dan memberikan nilai maksimal kepada setiap klien kami.', 'vision', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop', 2, true, NOW(), NOW()),
+    ('a50e8400-e29b-41d4-a716-446655440003', 'Misi Kami', 'Menghadirkan solusi teknologi berkualitas tinggi yang disesuaikan dengan kebutuhan unik setiap klien. Kami fokus pada pengembangan sistem yang scalable, secure, dan user-friendly dengan dukungan after-sales yang excellent. Komitmen kami adalah membantu bisnis tumbuh melalui teknologi yang tepat.', 'mission', 'https://images.unsplash.com/photo-1542626991-cbc4e32524cc?w=800&auto=format&fit=crop', 3, true, NOW(), NOW()),
+    ('a50e8400-e29b-41d4-a716-446655440004', 'Sejarah Perusahaan', 'Didirikan pada tahun 2014, DatiDashi dimulai dari tim kecil dengan visi besar untuk mengubah landscape teknologi Indonesia. Dari proyek pertama kami yang sederhana hingga kini menangani sistem enterprise skala besar, perjalanan kami dipenuhi dengan pembelajaran, inovasi, dan dedikasi untuk excellence. Kini kami bangga melayani 200+ klien dari berbagai industri.', 'history', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop', 4, true, NOW(), NOW()),
+    ('a50e8400-e29b-41d4-a716-446655440005', 'Nilai-Nilai Kami', 'Innovation - Kami selalu mencari cara baru dan lebih baik. Quality - Setiap line of code ditulis dengan standar tertinggi. Integrity - Transparansi dan kejujuran dalam setiap interaksi. Collaboration - Bekerja sama dengan klien sebagai partner, bukan vendor. Customer Focus - Kesuksesan klien adalah prioritas utama kami.', 'values', 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&auto=format&fit=crop', 5, true, NOW(), NOW())
+    ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, section = EXCLUDED.section, "imageUrl" = EXCLUDED."imageUrl", "order" = EXCLUDED."order", "isActive" = EXCLUDED."isActive", "updatedAt" = NOW();
   `);
 
   console.log('✅ All data seeded successfully!');

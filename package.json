@@ -22,6 +22,7 @@
     "seed:run:relational": "ts-node -r tsconfig-paths/register ./src/database/seeds/relational/run-seed.ts",
     "seed:run:document": "ts-node -r tsconfig-paths/register ./src/database/seeds/document/run-seed.ts",
     "seed:data": "ts-node -r tsconfig-paths/register ./src/database/seeds/run-seeder.ts",
+    "seed:final": "ts-node -r tsconfig-paths/register ./src/database/seeds/run-final-seed.ts",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
