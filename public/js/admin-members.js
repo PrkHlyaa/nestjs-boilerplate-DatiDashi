@@ -105,6 +105,7 @@ async function editMember(id) {
     document.getElementById('memberId').value = member.id;
     document.getElementById('memberName').value = member.name;
     document.getElementById('memberPosition').value = member.position;
+    document.getElementById('memberOrder').value = member.order || 0;
     
     // Set photo mode based on existing data
     if (member.photoUrl) {
@@ -145,6 +146,7 @@ async function saveMember(event) {
     name: document.getElementById('memberName').value,
     position: document.getElementById('memberPosition').value,
     photoUrl: photoUrl,
+    order: parseInt(document.getElementById('memberOrder').value) || 0,
   };
   
   try {

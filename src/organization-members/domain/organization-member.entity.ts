@@ -14,6 +14,9 @@ export class OrganizationMember {
   @Column({ type: 'text', nullable: true })
   photoUrl: string;
 
+  @Column({ type: 'int', default: 0 })
+  order: number;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 

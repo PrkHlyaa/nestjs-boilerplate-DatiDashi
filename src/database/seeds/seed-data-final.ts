@@ -38,27 +38,27 @@ export async function seedData(dataSource: DataSource) {
     ON CONFLICT (id) DO UPDATE SET jumlah = EXCLUDED.jumlah, judul = EXCLUDED.judul, deskripsi = EXCLUDED.deskripsi;
   `);
 
-  // 2. ORGANIZATION MEMBERS (name, position, photoUrl)
+  // 2. ORGANIZATION MEMBERS (name, position, photoUrl, order)
   console.log('Seeding organization members...');
   await dataSource.query(`
-    INSERT INTO organization_members (id, name, position, "photoUrl", "createdAt", "updatedAt")
+    INSERT INTO organization_members (id, name, position, "photoUrl", "order", "createdAt", "updatedAt")
     VALUES 
-    ('750e8400-e29b-41d4-a716-446655440001', 'Budi Santoso', 'CEO & Founder', 'https://ui-avatars.com/api/?name=Budi+Santoso&background=0D8ABC&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440002', 'Siti Nurhaliza', 'CTO', 'https://ui-avatars.com/api/?name=Siti+Nurhaliza&background=4CAF50&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440003', 'Ahmad Wijaya', 'COO', 'https://ui-avatars.com/api/?name=Ahmad+Wijaya&background=FF9800&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440004', 'Rina Kusuma', 'Lead Backend Developer', 'https://ui-avatars.com/api/?name=Rina+Kusuma&background=9C27B0&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440005', 'Dedy Prasetyo', 'Lead Frontend Developer', 'https://ui-avatars.com/api/?name=Dedy+Prasetyo&background=2196F3&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440006', 'Wulandari', 'Mobile Development Lead', 'https://ui-avatars.com/api/?name=Wulandari&background=E91E63&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440007', 'Rizky Firmansyah', 'DevOps Engineer', 'https://ui-avatars.com/api/?name=Rizky+Firmansyah&background=607D8B&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440008', 'Maya Anggraini', 'UI/UX Designer', 'https://ui-avatars.com/api/?name=Maya+Anggraini&background=FF5722&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440009', 'Andi Hermawan', 'QA Engineer', 'https://ui-avatars.com/api/?name=Andi+Hermawan&background=795548&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440010', 'Putri Rahayu', 'Product Manager', 'https://ui-avatars.com/api/?name=Putri+Rahayu&background=009688&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440011', 'Farhan Maulana', 'Data Analyst', 'https://ui-avatars.com/api/?name=Farhan+Maulana&background=3F51B5&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440012', 'Linda Sari', 'Security Engineer', 'https://ui-avatars.com/api/?name=Linda+Sari&background=F44336&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440013', 'Bambang Suprapto', 'Backend Developer', 'https://ui-avatars.com/api/?name=Bambang+Suprapto&background=673AB7&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440014', 'Nadia Safitri', 'Frontend Developer', 'https://ui-avatars.com/api/?name=Nadia+Safitri&background=00BCD4&color=fff&size=200', NOW(), NOW()),
-    ('750e8400-e29b-41d4-a716-446655440015', 'Hendra Gunawan', 'Customer Success Manager', 'https://ui-avatars.com/api/?name=Hendra+Gunawan&background=8BC34A&color=fff&size=200', NOW(), NOW())
-    ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, position = EXCLUDED.position, "photoUrl" = EXCLUDED."photoUrl", "updatedAt" = NOW();
+    ('750e8400-e29b-41d4-a716-446655440001', 'Budi Santoso', 'CEO & Founder', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face', 1, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440002', 'Siti Nurhaliza', 'CTO', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face', 2, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440003', 'Ahmad Wijaya', 'COO', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face', 3, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440004', 'Rina Kusuma', 'CFO', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face', 4, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440005', 'Dedy Prasetyo', 'Lead Backend Developer', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face', 5, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440006', 'Wulandari', 'Lead Frontend Developer', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face', 6, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440007', 'Rizky Firmansyah', 'Lead Mobile Developer', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face', 7, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440008', 'Maya Anggraini', 'Lead UI/UX Designer', 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face', 8, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440009', 'Andi Hermawan', 'DevOps Engineer', 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face', 9, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440010', 'Putri Rahayu', 'Product Manager', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face', 10, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440011', 'Farhan Maulana', 'QA Engineer', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face', 11, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440012', 'Linda Sari', 'Security Engineer', 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face', 12, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440013', 'Bambang Suprapto', 'Backend Developer', 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=400&h=400&fit=crop&crop=face', 13, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440014', 'Nadia Safitri', 'Frontend Developer', 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop&crop=face', 14, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440015', 'Hendra Gunawan', 'Customer Success Manager', 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=400&fit=crop&crop=face', 15, NOW(), NOW())
+    ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, position = EXCLUDED.position, "photoUrl" = EXCLUDED."photoUrl", "order" = EXCLUDED."order", "updatedAt" = NOW();
   `);
 
   // 3. FEATURES (name, description, icon)

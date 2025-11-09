@@ -1,4 +1,4 @@
-import { IsString, MaxLength, IsOptional } from 'class-validator';
+import { IsString, MaxLength, IsOptional, IsInt } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateOrganizationMemberDto {
@@ -22,4 +22,12 @@ export class CreateOrganizationMemberDto {
   @IsString()
   @IsOptional()
   photoUrl?: string;
+
+  @ApiPropertyOptional({
+    example: 1,
+    description: 'Display order (lower numbers appear first)',
+  })
+  @IsInt()
+  @IsOptional()
+  order?: number;
 }

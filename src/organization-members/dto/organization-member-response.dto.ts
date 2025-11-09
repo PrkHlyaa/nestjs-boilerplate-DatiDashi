@@ -14,6 +14,9 @@ export class OrganizationMemberResponseDto {
   photoUrl?: string;
 
   @ApiProperty()
+  order: number;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()

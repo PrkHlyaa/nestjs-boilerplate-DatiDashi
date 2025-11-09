@@ -26,7 +26,7 @@ export class OrganizationMembersService {
 
   async findAll(): Promise<OrganizationMemberResponseDto[]> {
     const organizationMembers = await this.organizationMemberRepository.find({
-      order: { createdAt: 'DESC' },
+      order: { order: 'ASC', createdAt: 'DESC' },
     });
     return organizationMembers.map((member) => this.mapToResponseDto(member));
   }
@@ -68,6 +68,7 @@ export class OrganizationMembersService {
       name: organizationMember.name,
       position: organizationMember.position,
       photoUrl: organizationMember.photoUrl,
+      order: organizationMember.order,
       createdAt: organizationMember.createdAt,
       updatedAt: organizationMember.updatedAt,
     };
