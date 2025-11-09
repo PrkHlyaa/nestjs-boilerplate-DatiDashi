@@ -13,11 +13,37 @@ function openCreateModal() {
   document.getElementById('modalTitle').textContent = 'Add Feature';
   document.getElementById('featureForm').reset();
   document.getElementById('featureId').value = '';
+  
+  // Hide icon preview
+  document.getElementById('iconPreview').classList.add('hidden');
+  
   document.getElementById('featureModal').classList.remove('hidden');
 }
 
 function closeModal() {
   document.getElementById('featureModal').classList.add('hidden');
+}
+
+// Show icon preview when icon is selected
+function updateIconPreview() {
+  const iconSelect = document.getElementById('featureIcon');
+  const iconValue = iconSelect.value;
+  const iconPreview = document.getElementById('iconPreview');
+  const previewIcon = document.getElementById('previewIcon');
+  const previewIconName = document.getElementById('previewIconName');
+  
+  if (iconValue) {
+    // Get selected option text
+    const selectedOption = iconSelect.options[iconSelect.selectedIndex];
+    const optionText = selectedOption.textContent;
+    
+    // Update preview
+    previewIcon.className = `fas ${iconValue} text-5xl text-blue-600 mb-2`;
+    previewIconName.textContent = optionText;
+    iconPreview.classList.remove('hidden');
+  } else {
+    iconPreview.classList.add('hidden');
+  }
 }
 
 async function editFeature(id) {
@@ -30,6 +56,10 @@ async function editFeature(id) {
     document.getElementById('featureName').value = feature.name;
     document.getElementById('featureDescription').value = feature.description;
     document.getElementById('featureIcon').value = feature.icon || '';
+    
+    // Show icon preview for existing icon
+    updateIconPreview();
+    
     document.getElementById('featureModal').classList.remove('hidden');
   } catch (error) {
     alert('Error: ' + error.message);
@@ -90,3 +120,6 @@ async function deleteFeature(id, name) {
 document.getElementById('featureModal')?.addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+
+// Add event listener for icon select change
+document.getElementById('featureIcon')?.addEventListener('change', updateIconPreview);

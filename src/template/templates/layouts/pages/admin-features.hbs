@@ -170,13 +170,145 @@
         </div>
         
         <div>
-          <label class="block text-gray-700 text-sm font-semibold mb-2">
+          <label class="block text-gray-700 text-sm font-semibold mb-3">
             <i class="fas fa-icons text-blue-600 mr-1"></i>
-            Icon (Font Awesome class)
+            Icon
           </label>
-          <input type="text" id="featureIcon" placeholder="fa-star, fa-rocket, fa-shield-alt, etc."
+          <select id="featureIcon" 
             class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <p class="text-xs text-gray-500 mt-1">Example: fa-expand-arrows-alt, fa-shield-alt</p>
+            <option value="">-- Select Icon --</option>
+            
+            <!-- Technology & Code -->
+            <optgroup label="💻 Technology & Code">
+              <option value="fa-code">💻 Code - Development</option>
+              <option value="fa-laptop-code">💻 Laptop Code - Programming</option>
+              <option value="fa-terminal">⌨️ Terminal - Command Line</option>
+              <option value="fa-database">🗄️ Database - Storage</option>
+              <option value="fa-server">🖥️ Server - Infrastructure</option>
+              <option value="fa-mobile-alt">📱 Mobile - Smartphone</option>
+              <option value="fa-tablet-alt">📱 Tablet - Device</option>
+              <option value="fa-desktop">🖥️ Desktop - Computer</option>
+            </optgroup>
+            
+            <!-- Security & Protection -->
+            <optgroup label="🔒 Security & Protection">
+              <option value="fa-shield-alt">🛡️ Shield - Protection</option>
+              <option value="fa-lock">🔒 Lock - Security</option>
+              <option value="fa-user-shield">👮 User Shield - Account Security</option>
+              <option value="fa-key">🔑 Key - Access</option>
+              <option value="fa-fingerprint">👆 Fingerprint - Biometric</option>
+              <option value="fa-eye-slash">👁️ Eye Slash - Privacy</option>
+            </optgroup>
+            
+            <!-- Performance & Speed -->
+            <optgroup label="⚡ Performance & Speed">
+              <option value="fa-rocket">🚀 Rocket - Fast Performance</option>
+              <option value="fa-bolt">⚡ Bolt - Lightning Fast</option>
+              <option value="fa-tachometer-alt">📊 Dashboard - Monitoring</option>
+              <option value="fa-fire">🔥 Fire - Hot/Trending</option>
+              <option value="fa-clock">⏰ Clock - Time/Speed</option>
+            </optgroup>
+            
+            <!-- Features & Tools -->
+            <optgroup label="🛠️ Features & Tools">
+              <option value="fa-cog">⚙️ Cog - Settings</option>
+              <option value="fa-tools">🛠️ Tools - Configuration</option>
+              <option value="fa-magic">✨ Magic - Special Feature</option>
+              <option value="fa-sliders-h">🎚️ Sliders - Customization</option>
+              <option value="fa-puzzle-piece">🧩 Puzzle - Integration</option>
+              <option value="fa-plug">🔌 Plug - Plugin</option>
+            </optgroup>
+            
+            <!-- Communication & Social -->
+            <optgroup label="💬 Communication & Social">
+              <option value="fa-comments">💬 Comments - Chat</option>
+              <option value="fa-envelope">✉️ Envelope - Email</option>
+              <option value="fa-bell">🔔 Bell - Notifications</option>
+              <option value="fa-share-alt">🔗 Share - Social</option>
+              <option value="fa-users">👥 Users - Team/Community</option>
+              <option value="fa-user-friends">👥 Friends - Collaboration</option>
+            </optgroup>
+            
+            <!-- Design & UI -->
+            <optgroup label="🎨 Design & UI">
+              <option value="fa-palette">🎨 Palette - Design</option>
+              <option value="fa-paint-brush">🖌️ Paint Brush - Creative</option>
+              <option value="fa-eye">👁️ Eye - Visibility</option>
+              <option value="fa-image">🖼️ Image - Photos</option>
+              <option value="fa-video">🎥 Video - Media</option>
+              <option value="fa-camera">📷 Camera - Photography</option>
+            </optgroup>
+            
+            <!-- Business & Analytics -->
+            <optgroup label="📊 Business & Analytics">
+              <option value="fa-chart-line">📈 Chart Line - Growth</option>
+              <option value="fa-chart-bar">📊 Chart Bar - Statistics</option>
+              <option value="fa-chart-pie">📊 Chart Pie - Analytics</option>
+              <option value="fa-dollar-sign">💰 Dollar - Money/Pricing</option>
+              <option value="fa-credit-card">💳 Credit Card - Payment</option>
+              <option value="fa-briefcase">💼 Briefcase - Business</option>
+            </optgroup>
+            
+            <!-- Navigation & Layout -->
+            <optgroup label="🧭 Navigation & Layout">
+              <option value="fa-expand-arrows-alt">⤢ Expand - Responsive</option>
+              <option value="fa-arrows-alt">↔️ Arrows - Move/Resize</option>
+              <option value="fa-compass">🧭 Compass - Navigation</option>
+              <option value="fa-map-marked-alt">🗺️ Map - Location</option>
+              <option value="fa-th-large">▦ Grid - Layout</option>
+              <option value="fa-list">☰ List - Menu</option>
+            </optgroup>
+            
+            <!-- Cloud & Network -->
+            <optgroup label="☁️ Cloud & Network">
+              <option value="fa-cloud">☁️ Cloud - Cloud Service</option>
+              <option value="fa-cloud-upload-alt">☁️ Cloud Upload - Upload</option>
+              <option value="fa-cloud-download-alt">☁️ Cloud Download - Download</option>
+              <option value="fa-wifi">📶 WiFi - Connectivity</option>
+              <option value="fa-network-wired">🔗 Network - Infrastructure</option>
+              <option value="fa-globe">🌐 Globe - Internet</option>
+            </optgroup>
+            
+            <!-- Files & Documents -->
+            <optgroup label="📄 Files & Documents">
+              <option value="fa-file-alt">📄 File - Document</option>
+              <option value="fa-folder">📁 Folder - Directory</option>
+              <option value="fa-download">⬇️ Download - Save</option>
+              <option value="fa-upload">⬆️ Upload - Import</option>
+              <option value="fa-copy">📋 Copy - Duplicate</option>
+              <option value="fa-save">💾 Save - Store</option>
+            </optgroup>
+            
+            <!-- Success & Status -->
+            <optgroup label="✅ Success & Status">
+              <option value="fa-check-circle">✅ Check Circle - Success</option>
+              <option value="fa-check">✔️ Check - Verified</option>
+              <option value="fa-star">⭐ Star - Featured</option>
+              <option value="fa-trophy">🏆 Trophy - Achievement</option>
+              <option value="fa-award">🥇 Award - Recognition</option>
+              <option value="fa-medal">🏅 Medal - Excellence</option>
+            </optgroup>
+            
+            <!-- Others -->
+            <optgroup label="🔧 Others">
+              <option value="fa-lightbulb">💡 Lightbulb - Idea</option>
+              <option value="fa-search">🔍 Search - Find</option>
+              <option value="fa-filter">🔽 Filter - Sort</option>
+              <option value="fa-sync">🔄 Sync - Refresh</option>
+              <option value="fa-heart">❤️ Heart - Favorite</option>
+              <option value="fa-bookmark">🔖 Bookmark - Save</option>
+            </optgroup>
+          </select>
+          
+          <!-- Icon Preview -->
+          <div id="iconPreview" class="mt-3 p-4 bg-gray-50 rounded-lg border border-gray-200 hidden">
+            <div class="flex items-center justify-center">
+              <div class="text-center">
+                <i id="previewIcon" class="fas fa-star text-5xl text-blue-600 mb-2"></i>
+                <p class="text-sm text-gray-600 font-semibold" id="previewIconName">Selected Icon Preview</p>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">

@@ -156,14 +156,58 @@
             class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
         
+        <!-- Photo Upload/URL Toggle -->
         <div>
-          <label class="block text-gray-700 text-sm font-semibold mb-2">
+          <label class="block text-gray-700 text-sm font-semibold mb-3">
             <i class="fas fa-image text-blue-600 mr-1"></i>
-            Photo URL
+            Photo
           </label>
-          <input type="text" id="memberPhotoUrl" 
-            class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <p class="text-xs text-gray-500 mt-1">Leave empty for default avatar</p>
+          
+          <!-- Toggle Buttons -->
+          <div class="flex gap-2 mb-3">
+            <button type="button" onclick="togglePhotoMode('url')" 
+              id="btnPhotoUrlMode"
+              class="flex-1 py-2.5 px-4 rounded-lg border-2 border-blue-600 bg-blue-600 text-white font-semibold transition">
+              <i class="fas fa-link mr-2"></i>URL
+            </button>
+            <button type="button" onclick="togglePhotoMode('upload')" 
+              id="btnPhotoUploadMode"
+              class="flex-1 py-2.5 px-4 rounded-lg border-2 border-gray-300 bg-white text-gray-700 font-semibold hover:bg-gray-50 transition">
+              <i class="fas fa-upload mr-2"></i>Upload
+            </button>
+          </div>
+          
+          <!-- URL Input -->
+          <div id="photoUrlSection">
+            <input type="text" id="memberPhotoUrl" placeholder="https://example.com/photo.jpg"
+              class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <p class="text-xs text-gray-500 mt-1">
+              <i class="fas fa-info-circle mr-1"></i>
+              Leave empty for default avatar
+            </p>
+          </div>
+          
+          <!-- Upload Input -->
+          <div id="photoUploadSection" class="hidden">
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition">
+              <input type="file" id="memberPhotoFile" accept="image/*" 
+                onchange="handlePhotoUpload(event)"
+                class="hidden">
+              <label for="memberPhotoFile" class="cursor-pointer">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                <p class="text-sm text-gray-600 font-semibold">Click to upload photo</p>
+                <p class="text-xs text-gray-500 mt-1">PNG, JPG, WEBP up to 5MB</p>
+              </label>
+            </div>
+            <!-- Preview -->
+            <div id="photoPreview" class="hidden mt-3">
+              <img id="previewPhotoImg" src="" alt="Preview" class="w-32 h-32 object-cover rounded-full border-4 border-gray-300 mx-auto">
+              <button type="button" onclick="removeUploadedPhoto()" 
+                class="mt-2 text-sm text-red-600 hover:text-red-700 font-semibold block mx-auto">
+                <i class="fas fa-times-circle mr-1"></i>Remove photo
+              </button>
+            </div>
+          </div>
         </div>
         
         <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">

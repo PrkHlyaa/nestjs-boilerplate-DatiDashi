@@ -181,7 +181,7 @@
           <p class="text-xs text-gray-500 mt-1">Minimum 10 characters</p>
         </div>
         
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4">
           <div>
             <label class="block text-gray-700 text-sm font-semibold mb-2">
               <i class="fas fa-layer-group text-blue-600 mr-1"></i>
@@ -197,26 +197,63 @@
             </select>
             <p class="text-xs text-gray-500 mt-1">Urutan akan otomatis sesuai section yang dipilih</p>
           </div>
-          <div>
-            <label class="block text-gray-700 text-sm font-semibold mb-2">
-              <i class="fas fa-image text-blue-600 mr-1"></i>
-              Image URL
-            </label>
-            <input type="text" id="aboutImageUrl" 
-              class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          </div>
         </div>
         
         <!-- Hidden order field - auto-calculated by JavaScript -->
         <input type="hidden" id="aboutOrder" value="0">
         
+        <!-- Image Upload/URL Toggle -->
         <div>
-          <label class="block text-gray-700 text-sm font-semibold mb-2">
+          <label class="block text-gray-700 text-sm font-semibold mb-3">
             <i class="fas fa-image text-blue-600 mr-1"></i>
-            Image URL
+            Image
           </label>
-          <input type="text" id="aboutImageUrl" 
-            class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          
+          <!-- Toggle Buttons -->
+          <div class="flex gap-2 mb-3">
+            <button type="button" onclick="toggleImageMode('url')" 
+              id="btnUrlMode"
+              class="flex-1 py-2.5 px-4 rounded-lg border-2 border-blue-600 bg-blue-600 text-white font-semibold transition">
+              <i class="fas fa-link mr-2"></i>URL
+            </button>
+            <button type="button" onclick="toggleImageMode('upload')" 
+              id="btnUploadMode"
+              class="flex-1 py-2.5 px-4 rounded-lg border-2 border-gray-300 bg-white text-gray-700 font-semibold hover:bg-gray-50 transition">
+              <i class="fas fa-upload mr-2"></i>Upload
+            </button>
+          </div>
+          
+          <!-- URL Input -->
+          <div id="urlInputSection">
+            <input type="text" id="aboutImageUrl" placeholder="https://example.com/image.jpg"
+              class="border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <p class="text-xs text-gray-500 mt-1">
+              <i class="fas fa-info-circle mr-1"></i>
+              Paste image URL from Unsplash, Imgur, etc.
+            </p>
+          </div>
+          
+          <!-- Upload Input -->
+          <div id="uploadInputSection" class="hidden">
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition">
+              <input type="file" id="aboutImageFile" accept="image/*" 
+                onchange="handleImageUpload(event)"
+                class="hidden">
+              <label for="aboutImageFile" class="cursor-pointer">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                <p class="text-sm text-gray-600 font-semibold">Click to upload image</p>
+                <p class="text-xs text-gray-500 mt-1">PNG, JPG, WEBP up to 5MB</p>
+              </label>
+            </div>
+            <!-- Preview -->
+            <div id="imagePreview" class="hidden mt-3">
+              <img id="previewImg" src="" alt="Preview" class="w-full h-48 object-cover rounded-lg border border-gray-300">
+              <button type="button" onclick="removeUploadedImage()" 
+                class="mt-2 text-sm text-red-600 hover:text-red-700 font-semibold">
+                <i class="fas fa-times-circle mr-1"></i>Remove image
+              </button>
+            </div>
+          </div>
         </div>
         
         <div class="flex items-center p-3 bg-gray-50 rounded-lg">
